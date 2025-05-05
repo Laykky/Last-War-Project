@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         
         if (m_playerNumber <= 0)
         {
-            Instantiate(m_gameOver);
+            m_gameOver.SetActive(true);
             Time.timeScale = 0;
         }
 
