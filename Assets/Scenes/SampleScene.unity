@@ -1095,6 +1095,8 @@ MonoBehaviour:
   m_playerRadius: 2
   m_playerAgentPrefab: {fileID: 8320437004361122346, guid: 221e049e72821bb449760f00924e478f,
     type: 3}
+  m_gameOver: {fileID: 5103996394896915362, guid: c3d0d6c40f8f3224c87018a7f6d21b55,
+    type: 3}
   speed: 5
 --- !u!4 &1995096339
 Transform:

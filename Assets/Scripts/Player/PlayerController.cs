@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int m_playerRadius;
     // Le perfab des personnages, c'est eux qui vont tirrer et c'est eux qui suivent le joueur
     [SerializeField] private GameObject m_playerAgentPrefab;
+    [SerializeField] private GameObject m_gameOver;
 
     // 🔹 Variables du déplacement 
     [SerializeField] private float speed = 5f; // Vitesse du joueur
@@ -35,7 +36,13 @@ public class PlayerController : MonoBehaviour
         m_agents.Remove(hitAgent);
         Destroy(hitAgent.gameObject);
         m_playerNumber--;
-        print("etst");
+        
+        if (m_playerNumber <= 0)
+        {
+            Instantiate(m_gameOver);
+            Time.timeScale = 0;
+        }
+
     }
 
     private Rigidbody rb;

@@ -104,6 +104,7 @@ public class PlayerAgent : MonoBehaviour // gère les perso de manières individ
     public void KillAgent()
     {
         controller.DeleteAgent(this);
+
     }
 
 }
