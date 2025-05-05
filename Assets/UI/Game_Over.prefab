@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2916911384758160576}
   - component: {fileID: 9126671689162571255}
   - component: {fileID: 3546776208086568768}
+  - component: {fileID: 7990505865484418587}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -103,6 +104,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7990505865484418587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149629116298925160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b5a0cb84bad4d44accbc3919fa15d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &581145099875952671
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,9 +238,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1184238786334280829}
+      - m_Target: {fileID: 7990505865484418587}
         m_TargetAssemblyTypeName: Reload_Game, Assembly-CSharp
-        m_MethodName: OnClick
+        m_MethodName: ResetScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

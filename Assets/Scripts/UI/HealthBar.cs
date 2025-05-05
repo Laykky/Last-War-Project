@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class Reload_Game : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] private Image _HealthBar;
     void Start()
     {
         
@@ -17,9 +17,9 @@ public class Reload_Game : MonoBehaviour
     {
         
     }
-    public void ResetScene()
+
+    public void UpdateHealthBar(float health, float currenthealth)
     {
-        SceneManager.LoadScene("SampleScene");
-        Time.timeScale = 1;
+        _HealthBar.fillAmount = currenthealth / health;
     }
 }

@@ -6,7 +6,9 @@ using UnityEngine;
 public class Enemies_Variables : MonoBehaviour
 {
     [SerializeField] private int health = 4; // Points de vie (modifiable dans l'Inspector)
+    private int currenthealth = 4; // Points de vie (modifiable dans l'Inspector)
     [SerializeField] private Renderer enemyRenderer; // Le Renderer pour modifier la couleur
+    [SerializeField] private HealthBar healthBar;
     private Color originalColor; // Couleur de base de l'ennemi
 
     // 🔹 VFX (à activer plus tard)
@@ -19,15 +21,19 @@ public class Enemies_Variables : MonoBehaviour
             enemyRenderer = GetComponent<Renderer>(); // Récupérer le Renderer
 
         originalColor = enemyRenderer.material.color; // Sauvegarder la couleur de base
+        currenthealth = health;
+        // HealthBar Healthbar = GetComponent<HealthBar>();
+        healthBar.UpdateHealthBar(health,currenthealth);
     }
 
     public void TakeDamage(int damage)
     {
-        health -= damage; // Réduction des PV
+        currenthealth -= damage; // Réduction des PV
+        healthBar.UpdateHealthBar(health, currenthealth);
 
         StartCoroutine(FlashDamageEffect()); // Effet visuel rapide
 
-        if (health <= 0)
+        if (currenthealth <= 0)
         {
             Die();
             print("mort");
