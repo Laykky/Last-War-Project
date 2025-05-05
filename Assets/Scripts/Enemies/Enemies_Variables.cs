@@ -51,7 +51,6 @@ public class Enemies_Variables : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-    
         if (other.tag == "Player")
         {
             PlayerAgent agent = other.GetComponentInParent<PlayerAgent>();
