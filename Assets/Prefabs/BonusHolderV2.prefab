@@ -377,8 +377,8 @@ MonoBehaviour:
   textUI: {fileID: 7315951416255434352}
   bonusCanvas: {fileID: 8767012732791411377}
   bonusValue: 0
-  minBonusValue: 1
-  maxBonusValue: 3
+  minBonusValue: 4
+  maxBonusValue: 10
 --- !u!65 &5679711163903022811
 BoxCollider:
   m_ObjectHideFlags: 0

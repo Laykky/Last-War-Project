@@ -26,6 +26,16 @@ public class PlayerController : MonoBehaviour
     public void AddAgent(int agentNumber)
     {
         m_playerNumber += agentNumber; // += ajoute le nombre exacte que tu veux alors que == ajoute 1
+        RespawnPlayers();
+    }
+
+    public void DeleteAgent(PlayerAgent hitAgent)
+    {
+        //PlayerAgent agent = m_agents[m_playerNumber - 1];
+        m_agents.Remove(hitAgent);
+        Destroy(hitAgent.gameObject);
+        m_playerNumber--;
+        print("etst");
     }
 
     private Rigidbody rb;
@@ -33,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        RespawnPlayers();
     }
 
     void Update()
@@ -54,31 +65,7 @@ public class PlayerController : MonoBehaviour
         // Normalement tu devrais pas trop avoir a toucher au reste de update !
 
         // On récupère une liste de points dans un cercle, qu'on utilise pour faire spawn les personnages
-        m_circlePoints.Clear();
-        m_circlePoints = GeneratePointsInSphere(m_playerNumber, 1);
 
-        // Si m_lastNumber change, on détruit les personnages et on les respawn
-        if (m_lastNumber != m_playerNumber)
-        {
-            m_lastNumber = m_playerNumber;
-            foreach (PlayerAgent agent in m_agents)
-            {
-                Destroy(agent.gameObject);
-            }
-
-            m_agents.Clear();
-            for (int i = 0; i < m_playerNumber; i++)
-            {
-                Vector2 position = new Vector2((m_circlePoints[i + 1].x * m_playerRadius) + transform.position.x, (m_circlePoints[i + 1].y * m_playerRadius) + transform.position.z);
-
-                m_agents.Add(Instantiate(m_playerAgentPrefab).GetComponent<PlayerAgent>());
-                m_agents[i].controller = this;
-
-                m_agents[i].transform.position = transform.position;
-                m_agents[i].m_targetPos = position;
-                m_agents[i].m_moveSpeed = m_playerAgentSpeed;
-            }
-        }
 
 
         // Déplacent les personnages vers leur position cible autour du joueur (le point qui est généré avec GeneratePointsInSphere et qui leur est assigné)
@@ -100,7 +87,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
 
     // Affiche la position de spawn des personnages, tu peux le supprimer si tu veux
     private void OnDrawGizmos()
@@ -138,6 +124,31 @@ public class PlayerController : MonoBehaviour
         else
         {
             return Mathf.Sqrt(k - 0.5f) / Mathf.Sqrt(n - (b + 1) / 2);
+        }
+    }
+
+    private void RespawnPlayers()
+    {
+        m_circlePoints.Clear();
+        m_circlePoints = GeneratePointsInSphere(m_playerNumber, 1);
+
+        m_lastNumber = m_playerNumber;
+        foreach (PlayerAgent agent in m_agents)
+        {
+            Destroy(agent.gameObject);
+        }
+
+        m_agents.Clear();
+        for (int i = 0; i < m_playerNumber; i++)
+        {
+            Vector2 position = new Vector2((m_circlePoints[i + 1].x * m_playerRadius) + transform.position.x, (m_circlePoints[i + 1].y * m_playerRadius) + transform.position.z);
+
+            m_agents.Add(Instantiate(m_playerAgentPrefab).GetComponent<PlayerAgent>());
+            m_agents[i].controller = this;
+
+            m_agents[i].transform.position = transform.position;
+            m_agents[i].m_targetPos = position;
+            m_agents[i].m_moveSpeed = m_playerAgentSpeed;
         }
     }
 }

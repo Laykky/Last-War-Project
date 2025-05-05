@@ -74,8 +74,18 @@ public class PlayerAgent : MonoBehaviour // gère les perso de manières individ
         {
             BonusAddChara bonusAddChara = other.GetComponent<BonusAddChara>();
             int playerstoadd = bonusAddChara.bonusValue;
-            controller.AddAgent(playerstoadd);
-            Destroy(other.gameObject);
+            if (bonusAddChara.hitCount < bonusAddChara.maxHits) 
+                {
+                Destroy(other.gameObject);
+                }
+            else        
+            {    
+                controller.AddAgent(playerstoadd);
+                Destroy(other.gameObject);
+            }
+            //int playerstoadd = bonusAddChara.bonusValue;
+            //controller.AddAgent(playerstoadd);
+            //Destroy(other.gameObject);
         }
 
         if (other.tag == "BonusShoot")
@@ -89,6 +99,11 @@ public class PlayerAgent : MonoBehaviour // gère les perso de manières individ
             print("plus");
 
         }
+    }
+
+    public void KillAgent()
+    {
+        controller.DeleteAgent(this);
     }
 
 }

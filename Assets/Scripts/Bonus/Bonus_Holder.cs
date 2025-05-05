@@ -53,7 +53,9 @@ public class Bonus_Holder : MonoBehaviour
 
             if (other.CompareTag("Player") && bonusValue > 0) // 🔹 Si le bonus n'est PAS à zéro, détruit l'élément Player
             {
-                Destroy(other.gameObject);
+                PlayerAgent agent = other.GetComponentInParent<PlayerAgent>();
+            agent.KillAgent();
+                //Destroy(other.gameObject);
                 Debug.Log("Le joueur a été détruit par le bonus !");
             }
         

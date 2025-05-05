@@ -9,9 +9,9 @@ public class BonusAddChara : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textUI; // Texte affichant la valeur du bonus
     [SerializeField] private Canvas bonusCanvas; // Canvas du bonus
     public int bonusValue; // Valeur aléatoire entre 1 et 4
-    private int hitCount = 0; // Nombre de fois où le bonus est touché
-    [SerializeField] private int maxHits = 3; // Limite de montée à 3 impacts
-    [SerializeField] private float moveAmount = 0.1f; // Déplacement vertical par impact
+    public int hitCount = 0; // Nombre de fois où le bonus est touché
+    [SerializeField] public int maxHits = 3; // Limite de montée à 3 impacts
+    [SerializeField] public float moveAmount = 0.1f; // Déplacement vertical par impact
 
     public int GetBonusValue()
     {
@@ -62,6 +62,13 @@ public class BonusAddChara : MonoBehaviour
                 }
 
                 Destroy(other.gameObject); // Détruit la balle après l'impact
+        }
+        if (other.CompareTag("Player") && hitCount < maxHits) // 🔹 Si le bonus n'est PAS à zéro, détruit l'élément Player
+        {
+            PlayerAgent agent = other.GetComponentInParent<PlayerAgent>();
+            agent.KillAgent();
+            //Destroy(other.gameObject);
+            Debug.Log("Le joueur a été détruit par le bonus !");
         }
     }
 

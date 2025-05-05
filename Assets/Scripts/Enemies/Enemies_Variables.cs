@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemies_Variables : MonoBehaviour
@@ -46,5 +47,17 @@ public class Enemies_Variables : MonoBehaviour
         // if (deathVFX != null) Instantiate(deathVFX, transform.position, Quaternion.identity);
 
         Destroy(gameObject); // Supprimer l'ennemi après sa mort
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+    
+        if (other.tag == "Player")
+        {
+            PlayerAgent agent = other.GetComponentInParent<PlayerAgent>();
+            agent.KillAgent();
+            //Destroy(other.gameObject);
+            Debug.Log("Le joueur a été détruit par les ennemis !");
+        }
     }
 }
