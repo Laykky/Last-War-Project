@@ -1603,11 +1603,14 @@ MonoBehaviour:
   spawnPoint: {fileID: 2134545941}
   normalEnemyHeight: 0
   specialEnemyHeight: 1
-  enemiesPerWave: 6
+  enemiesPerWave: 2
   spacing: 0.5
   specialEnemySpacing: 6
   spawnInterval: 0.5
   enemySpeed: 3
+  NewSpawnInterval: 10
+  NewEnemiesAdd: 1
+  MaxEnnemies: 8
 --- !u!1 &2100662155
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,9 @@ public class Enemies_Spawner : MonoBehaviour
     public float specialEnemySpacing = 6f; // Espacement pour l'ennemi spécial
     public float spawnInterval = 1f; // Temps entre chaque vague
     public float enemySpeed = 5f; // Vitesse de déplacement des ennemis
+    public float NewSpawnInterval = 15f; // Vitesse de déplacement des ennemis
+    public int NewEnemiesAdd = 1; // Vitesse de déplacement des ennemis
+    public int MaxEnnemies = 8; // Vitesse de déplacement des ennemis
 
     private float specialEnemySpawnTimer = 0f; // Temps écoulé depuis le dernier spawn spécial
     private float specialEnemySpawnDelay; // Délai aléatoire entre les apparitions des ennemis spéciaux
@@ -25,7 +28,7 @@ public class Enemies_Spawner : MonoBehaviour
     {
         // Retarde l'activation du spawn des ennemis spéciaux 
         StartCoroutine(EnableSpecialEnemyAfterDelay(1f));
-
+        StartCoroutine(SpawnEnemiesUpdate());
         StartCoroutine(SpawnEnemiesContinuously());
     }
 
@@ -42,6 +45,17 @@ public class Enemies_Spawner : MonoBehaviour
         {
             SpawnWave();
             yield return new WaitForSeconds(spawnInterval); // Attente avant la prochaine vague
+        }
+    }
+
+    IEnumerator SpawnEnemiesUpdate()
+    {
+        while (enemiesPerWave < MaxEnnemies) // contrairement au if crée une boucle.
+        { 
+
+        yield return new WaitForSeconds(NewSpawnInterval);
+        enemiesPerWave += NewEnemiesAdd;
+
         }
     }
 
