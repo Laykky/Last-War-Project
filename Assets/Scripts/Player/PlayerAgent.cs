@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +26,11 @@ public class PlayerAgent : MonoBehaviour // gère les perso de manières individ
     {
         m_rb = GetComponent<Rigidbody>();
         StartCoroutine(ShootContinuously());
+    }
+
+    private void Start()
+    {
+        transform.DOShakeScale(0.3f, 0.5f, 8);
     }
 
     // Update is called once per frame

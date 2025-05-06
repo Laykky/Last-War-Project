@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
         foreach (Vector2 point in m_circlePoints)
         {
             Vector3 position = new Vector3((point.x * m_playerRadius) + transform.position.x, transform.position.y, (point.y * m_playerRadius) + transform.position.z);
-            Gizmos.DrawWireSphere(position, 1);
+            Gizmos.DrawWireSphere(position, 0.2f);
         }
         Gizmos.DrawWireSphere(transform.position, m_playerRadius);
     }
