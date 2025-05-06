@@ -1607,7 +1607,7 @@ MonoBehaviour:
   spacing: 0.5
   specialEnemySpacing: 6
   spawnInterval: 0.5
-  enemySpeed: 3
+  enemySpeed: 2
   NewSpawnInterval: 10
   NewEnemiesAdd: 1
   MaxEnnemies: 8
