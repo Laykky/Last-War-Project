@@ -10,8 +10,9 @@ public class BonusAddChara : MonoBehaviour
     [SerializeField] private Canvas bonusCanvas; // Canvas du bonus
     public int bonusValue; // Valeur aléatoire entre 1 et 4
     public int hitCount = 0; // Nombre de fois où le bonus est touché
-    [SerializeField] public int maxHits = 3; // Limite de montée à 3 impacts
+    [SerializeField] public int maxHits = 5; // Limite de montée à 3 impacts
     [SerializeField] public float moveAmount = 0.1f; // Déplacement vertical par impact
+    // [SerializeField] private ParticleSystem maxVFX;
 
     public int GetBonusValue()
     {
@@ -20,7 +21,7 @@ public class BonusAddChara : MonoBehaviour
 
     void Awake()
     {
-        bonusValue = Random.Range(1, 5); // Valeur aléatoire avant le spawn
+        bonusValue = Random.Range(1, 3); // Valeur aléatoire avant le spawn
 
         textUI = GetComponentInChildren<TextMeshProUGUI>(); // Trouve TextMeshPro automatiquement
         bonusCanvas = GetComponentInChildren<Canvas>(); // Trouve le Canvas automatiquement
@@ -57,7 +58,7 @@ public class BonusAddChara : MonoBehaviour
                 }
                 else //  Si le bonus atteint sa hauteur max, on augmente la valeur
                 {
-                    bonusValue = Mathf.Min(bonusValue + 1, 8); // 🔹 Augmente mais ne dépasse jamais 8
+                    bonusValue = Mathf.Min(bonusValue + 1, 6); // 🔹 Augmente mais ne dépasse jamais 8
                     UpdateBonusUI(); // 🔹 Met à jour l'affichage UI
                 }
 
@@ -79,4 +80,6 @@ public class BonusAddChara : MonoBehaviour
             textUI.SetText("{0}", bonusValue); // Met à jour l'affichage du bonus
         }
     }
+
+
 }

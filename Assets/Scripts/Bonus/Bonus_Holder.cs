@@ -58,7 +58,9 @@ public class Bonus_Holder : MonoBehaviour
                 //Destroy(other.gameObject);
                 Debug.Log("Le joueur a été détruit par le bonus !");
             }
-        
+
+
+
     }
 
     void UpdateBonusUI()

@@ -83,6 +83,7 @@ public class PlayerAgent : MonoBehaviour // gère les perso de manières individ
             if (bonusAddChara.hitCount < bonusAddChara.maxHits) 
                 {
                 Destroy(other.gameObject);
+
                 }
             else        
             {    

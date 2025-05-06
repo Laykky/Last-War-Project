@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
             moveInput = -1f; // Correction du sens du déplacement
 
-        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q)))
+        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))
             moveInput = 1f;
 
             rb.velocity = new Vector3(moveInput * speed, rb.velocity.y, 0);

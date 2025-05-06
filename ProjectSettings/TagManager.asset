@@ -9,6 +9,7 @@ TagManager:
   - HolderBonus
   - BonusSpeed
   - BonusShoot
+  - EndCollider
   layers:
   - Default
   - TransparentFX

@@ -256,7 +256,7 @@ MonoBehaviour:
     type: 3}
   shootingSpot: {fileID: 990540583424877100}
   bulletSpeed: 5
-  shootingRate: 0.7
+  shootingRate: 0.5
   SubshootingRate: 0.3
   controller: {fileID: 0}
 --- !u!54 &6541270849544901978

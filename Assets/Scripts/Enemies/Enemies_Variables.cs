@@ -9,11 +9,13 @@ public class Enemies_Variables : MonoBehaviour
     private int currenthealth = 4; // Points de vie (modifiable dans l'Inspector)
     [SerializeField] private Renderer enemyRenderer; // Le Renderer pour modifier la couleur
     [SerializeField] private HealthBar healthBar;
+    [SerializeField] private GameObject m_gameOver;
+    // [SerializeField] private bool enableCameraShake = true;
     private Color originalColor; // Couleur de base de l'ennemi
 
     // 🔹 VFX (à activer plus tard)
     // [SerializeField] private ParticleSystem hitVFX; // Effet quand une balle touche
-    // [SerializeField] private ParticleSystem deathVFX; // Effet de mort
+    [SerializeField] private ParticleSystem deathVFX; // Effet de mort
 
     void Start()
     {
@@ -49,11 +51,16 @@ public class Enemies_Variables : MonoBehaviour
 
     void Die()
     {
-        // 🔹 VFX de mort (à activer plus tard)
-        // if (deathVFX != null) Instantiate(deathVFX, transform.position, Quaternion.identity);
 
-        Destroy(gameObject); // Supprimer l'ennemi après sa mort
-    }
+        if (deathVFX)
+        {
+            deathVFX.transform.parent = null;
+            deathVFX.Play();
+        }
+        Destroy(gameObject);
+
+
+    } 
 
     void OnTriggerEnter(Collider other)
     {
@@ -68,6 +75,8 @@ public class Enemies_Variables : MonoBehaviour
         if (other.tag == "EndCollider")
         {
 
+            m_gameOver.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 }
