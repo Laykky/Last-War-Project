@@ -64,5 +64,10 @@ public class Enemies_Variables : MonoBehaviour
             //Destroy(other.gameObject);
             Debug.Log("Le joueur a été détruit par les ennemis !");
         }
+
+        if (other.tag == "EndCollider")
+        {
+
+        }
     }
 }
