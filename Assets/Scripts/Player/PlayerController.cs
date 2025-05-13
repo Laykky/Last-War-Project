@@ -10,9 +10,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int m_playerNumber;
     // Le rayon du cercle dans lequel les personnages spawnent
     [SerializeField] private int m_playerRadius;
+    //[SerializeField] private int m_maxagent;
     // Le perfab des personnages, c'est eux qui vont tirrer et c'est eux qui suivent le joueur
     [SerializeField] private GameObject m_playerAgentPrefab;
     [SerializeField] private GameObject m_gameOver;
+    // [SerializeField] private GameObject MaxPlayerUI;
+    //[SerializeField] ParticleSystem UpgradeVFX;
 
     // 🔹 Variables du déplacement 
     [SerializeField] private float speed = 5f; // Vitesse du joueur
@@ -26,8 +29,10 @@ public class PlayerController : MonoBehaviour
 
     public void AddAgent(int agentNumber)
     {
+        
         m_playerNumber += agentNumber; // += ajoute le nombre exacte que tu veux alors que == ajoute 1
         RespawnPlayers();
+        //UpgradeVFX.Play();
     }
 
     public void DeleteAgent(PlayerAgent hitAgent)

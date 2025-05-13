@@ -349,7 +349,7 @@ MonoBehaviour:
     type: 3}
   shootingSpot: {fileID: 990540583424877100}
   bulletSpeed: 5
-  shootingRate: 0.5
+  shootingRate: 1
   SubshootingRate: 0.3
   controller: {fileID: 0}
   agentdeathImpulse: {fileID: 2483827250286216214}

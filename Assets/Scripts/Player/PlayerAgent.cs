@@ -102,7 +102,7 @@ public class PlayerAgent : MonoBehaviour // gère les perso de manières individ
             shootingRate -= SubshootingRate;
 
             // 🔹 Assure que shootingRate ne descend jamais sous 0.3
-            shootingRate = Mathf.Max(shootingRate, 0.2f);
+            shootingRate = Mathf.Max(shootingRate, 0.1f);
 
             Destroy(other.gameObject);
             print("plus");

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,37 +6,42 @@ public class Enemies_Spawner : MonoBehaviour
 
 {
     public GameObject enemyPrefab; // Prefab de l'ennemi classique
-    public GameObject specialEnemyPrefab; // Prefab de l'ennemi spécial
-    public Transform spawnPoint; // Point de référence du spawn
+    public GameObject specialEnemyPrefab; // Prefab de l'ennemi spÃ©cial
+    public Transform spawnPoint; // Point de rÃ©fÃ©rence du spawn
 
     public float normalEnemyHeight = 0f; // Hauteur de spawn des ennemis normaux
-    public float specialEnemyHeight = 2f; // Hauteur de spawn des ennemis spéciaux
+    public float specialEnemyHeight = 2f; // Hauteur de spawn des ennemis spÃ©ciaux
     public int enemiesPerWave = 8; // Nombre d'ennemis normaux par vague
     public float spacing = 2f; // Espacement entre les ennemis normaux
-    public float specialEnemySpacing = 6f; // Espacement pour l'ennemi spécial
+    public float specialEnemySpacing = 6f; // Espacement pour l'ennemi spÃ©cial
     public float spawnInterval = 1f; // Temps entre chaque vague
-    public float enemySpeed = 5f; // Vitesse de déplacement des ennemis
-    public float NewSpawnInterval = 10f; // Vitesse de déplacement des ennemis
-    public int NewEnemiesAdd = 1; // Vitesse de déplacement des ennemis
-    public int MaxEnnemies = 8; // Vitesse de déplacement des ennemis
+    public float NewSpawnInterval = 10f;
+    public int NewEnemiesAdd = 1;
+    public int MaxEnnemies = 8;
 
-    private float specialEnemySpawnTimer = 0f; // Temps écoulé depuis le dernier spawn spécial
-    private float specialEnemySpawnDelay; // Délai aléatoire entre les apparitions des ennemis spéciaux
-    private bool specialEnemyEnabled = false; // Permet d'empêcher le spawn des ennemis spéciaux au début
+    [SerializeField] private float initialSpeed = 2f; // ðŸ”¹ Vitesse initiale des ennemis (modifiable)
+    [SerializeField] private float maxSpeed = 8f; // ðŸ”¹ Vitesse maximale des ennemis (modifiable)
+    [SerializeField] private float speedIncreaseRate = 0.1f; // ðŸ”¹ Vitesse de croissance (modifiable)
+
+    private float enemySpeed; // ðŸ”¹ Stocke la vitesse actuelle des ennemis
+    private float specialEnemySpawnTimer = 0f;
+    private float specialEnemySpawnDelay;
+    private bool specialEnemyEnabled = false;
 
     void Start()
     {
-        // Retarde l'activation du spawn des ennemis spéciaux 
+        enemySpeed = initialSpeed; // ðŸ”¹ DÃ©finit la vitesse de base des ennemis
         StartCoroutine(EnableSpecialEnemyAfterDelay(1f));
         StartCoroutine(SpawnEnemiesUpdate());
         StartCoroutine(SpawnEnemiesContinuously());
+        StartCoroutine(IncreaseSpeedOverTime()); // ðŸ”¹ Commence l'augmentation progressive de la vitesse
     }
 
     IEnumerator EnableSpecialEnemyAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        specialEnemyEnabled = true; // Active le spawn des ennemis spéciaux après le délai
-        specialEnemySpawnDelay = Random.Range(10f, 20f); // Génère un premier délai aléatoire
+        specialEnemyEnabled = true;
+        specialEnemySpawnDelay = Random.Range(10f, 20f);
     }
 
     IEnumerator SpawnEnemiesContinuously()
@@ -44,41 +49,47 @@ public class Enemies_Spawner : MonoBehaviour
         while (true)
         {
             SpawnWave();
-            yield return new WaitForSeconds(spawnInterval); // Attente avant la prochaine vague
+            yield return new WaitForSeconds(spawnInterval);
         }
     }
 
     IEnumerator SpawnEnemiesUpdate()
     {
-        while (enemiesPerWave < MaxEnnemies) // contrairement au if crée une boucle.
-        { 
+        while (enemiesPerWave < MaxEnnemies)
+        {
+            yield return new WaitForSeconds(NewSpawnInterval);
+            enemiesPerWave += NewEnemiesAdd;
+        }
+    }
 
-        yield return new WaitForSeconds(NewSpawnInterval);
-        enemiesPerWave += NewEnemiesAdd;
-
+    IEnumerator IncreaseSpeedOverTime()
+    {
+        while (enemySpeed < maxSpeed) // ðŸ”¹ Augmente progressivement mais ne dÃ©passe pas maxSpeed
+        {
+            yield return new WaitForSeconds(5f);
+            enemySpeed = Mathf.Min(enemySpeed + speedIncreaseRate, maxSpeed);
         }
     }
 
     void SpawnWave()
     {
         int i = 0;
-        bool specialEnemySpawned = false; // Vérifie si un ennemi spécial a déjà spawn
+        bool specialEnemySpawned = false;
 
         while (i < enemiesPerWave)
         {
             GameObject enemy;
             Vector3 spawnPosition;
 
-            // Vérifie si l'ennemi spécial doit apparaître (seulement après 20 secondes et un seul par ligne)
             if (specialEnemyEnabled && !specialEnemySpawned && specialEnemySpawnTimer >= specialEnemySpawnDelay && i <= enemiesPerWave - 3)
             {
                 spawnPosition = spawnPoint.position + Vector3.right * (i * specialEnemySpacing) + Vector3.up * specialEnemyHeight;
                 enemy = Instantiate(specialEnemyPrefab, spawnPosition, spawnPoint.rotation);
                 StartCoroutine(MoveEnemy(enemy));
                 specialEnemySpawned = true;
-                specialEnemySpawnTimer = 0f; // Réinitialise le timer
-                specialEnemySpawnDelay = Random.Range(10f, 20f); // Définir un nouveau délai aléatoire
-                i += 3; // Il occupe l'espace de 3 ennemis normaux
+                specialEnemySpawnTimer = 0f;
+                specialEnemySpawnDelay = Random.Range(10f, 20f);
+                i += 3;
             }
             else
             {
@@ -89,15 +100,15 @@ public class Enemies_Spawner : MonoBehaviour
             }
         }
 
-        specialEnemySpawnTimer += spawnInterval; // Mise à jour du timer pour le spawn de l'ennemi spécial
+        specialEnemySpawnTimer += spawnInterval;
     }
 
     IEnumerator MoveEnemy(GameObject enemy)
     {
-        while (enemy != null) // Vérifie que l'objet existe toujours
+        while (enemy != null)
         {
             enemy.transform.Translate(Vector3.forward * enemySpeed * Time.deltaTime);
-            yield return null; // Attend la prochaine frame
+            yield return null;
         }
     }
 }

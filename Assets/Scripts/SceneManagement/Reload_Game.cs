@@ -22,4 +22,11 @@ public class Reload_Game : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
         Time.timeScale = 1;
     }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene("Menu");
+        Time.timeScale = 1;
+    }
+
 }
