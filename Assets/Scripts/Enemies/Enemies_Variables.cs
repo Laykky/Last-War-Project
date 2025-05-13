@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class Enemies_Variables : MonoBehaviour
     // 🔹 VFX (à activer plus tard)
     // [SerializeField] private ParticleSystem hitVFX; // Effet quand une balle touche
     [SerializeField] private ParticleSystem deathVFX; // Effet de mort
+    [SerializeField] private CinemachineImpulseSource deathImpulse; // Effet de mort
 
     void Start()
     {
@@ -57,6 +59,8 @@ public class Enemies_Variables : MonoBehaviour
             deathVFX.transform.parent = null;
             deathVFX.Play();
         }
+        if(deathImpulse)
+            deathImpulse.GenerateImpulse();
         Destroy(gameObject);
 
 

@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Cinemachine;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,8 @@ public class PlayerAgent : MonoBehaviour // gère les perso de manières individ
     [SerializeField] public float bulletSpeed = 15f; // Vitesse des balles
     [SerializeField] private float shootingRate = 0.9f; // Intervalle entre chaque tir
     [SerializeField] private float SubshootingRate = 0.2f; // Intervalle entre chaque tir
-    public PlayerController controller; // référence au controlleur 
+    public PlayerController controller; // référence au controlleur
+    [SerializeField] private CinemachineImpulseSource agentdeathImpulse;
 
 
     private void Awake()
@@ -111,7 +113,8 @@ public class PlayerAgent : MonoBehaviour // gère les perso de manières individ
     public void KillAgent()
     {
         controller.DeleteAgent(this);
-
+        if (agentdeathImpulse)
+            agentdeathImpulse.GenerateImpulse();
     }
 
 }

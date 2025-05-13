@@ -9,6 +9,7 @@ public class ProjectileLaucher : MonoBehaviour
     [SerializeField] private float impulseForce = 20f;
     [SerializeField] private float velocityFactor = 1.5f;
     [SerializeField] private float startDelay = 2f;
+    [SerializeField] private float vfxplayingdelay = 1f;
     [SerializeField] private float fireRate = 3f;
 
     [SerializeField] private float rotationAngle = 20f;
@@ -19,6 +20,8 @@ public class ProjectileLaucher : MonoBehaviour
     private Quaternion leftRotation;
     private Quaternion rightRotation;
 
+    [SerializeField] private ParticleSystem warningVFX;
+
     private void Start()
     {
         StartCoroutine(ShootProjectiles()); // 🔹 Lance la routine de tir
@@ -26,11 +29,15 @@ public class ProjectileLaucher : MonoBehaviour
     }
 
     private IEnumerator ShootProjectiles()
-    {
+    { 
+
         yield return new WaitForSeconds(startDelay); // 🔹 Attente initiale avant le premier tir
 
         while (true)
         {
+            if (warningVFX != null)
+                warningVFX.Play();
+            yield return new WaitForSeconds(vfxplayingdelay);
             GameObject _projectile = Instantiate(canonProjectile, launchPoint.position, launchPoint.rotation);
             Rigidbody rb = _projectile.GetComponent<Rigidbody>();
 

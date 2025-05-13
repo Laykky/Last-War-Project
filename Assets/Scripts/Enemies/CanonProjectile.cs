@@ -6,6 +6,7 @@ public class CanonProjectile : MonoBehaviour
 {
     // [SerializeField] private GameObject explosionVFX; // 🔹 VFX d'explosion
     [SerializeField] private LayerMask hitLayer; // 🔹 Layer des objets à toucher
+     
 
     private void OnCollisionEnter(Collision collision)
     {
